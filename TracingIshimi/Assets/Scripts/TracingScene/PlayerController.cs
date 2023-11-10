@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
         FirstJump,
         SecondJump,
         Damaged,
+        die,
         Idle //Idle = 뛰기
     }
 
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public int jumpCount = 0; //private로 후에 수정
     Rigidbody2D playerRigid;
     public PlayerState playerState;
+
+    public bool isJumpBtnDown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (isJumpBtnDown)
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
