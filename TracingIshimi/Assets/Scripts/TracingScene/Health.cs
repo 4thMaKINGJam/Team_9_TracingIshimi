@@ -13,6 +13,19 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private AudioSource audioSource;
+    public AudioClip audioHurt;
+    public PlayerController playerController;
+    private bool isSuper = false;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.clip = audioHurt;
+        audioSource.loop = false;
+        playerController = GetComponent<PlayerController>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -29,12 +42,28 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Obstacle"))
+        if (col.gameObject.CompareTag("Obstacle") && !isSuper)
         {
+            StartCoroutine(MakePlayerSuper());
+            audioSource.Play();
             currentHealth--;
+            if (currentHealth == 0)
+            {
+                playerController.SetPlayerStateDie();
+            }
         }
+    }
+    IEnumerator MakePlayerSuper()
+    {
+
+        isSuper = true;
+        // 일정 시간 기다리기
+        yield return new WaitForSeconds(2.0f);
+
+        isSuper = false;
+
 
     }
 }
