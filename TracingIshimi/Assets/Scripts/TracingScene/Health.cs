@@ -14,7 +14,6 @@ public class Health : MonoBehaviour
     public Sprite emptyHeart;
 
     private AudioSource audioSource;
-    public AudioClip audioHurt;
     public PlayerController playerController;
     private bool isSuper = false;
 
@@ -22,8 +21,6 @@ public class Health : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
 
-        audioSource.clip = audioHurt;
-        audioSource.loop = false;
         playerController = GetComponent<PlayerController>();
     }
     // Update is called once per frame
@@ -47,7 +44,7 @@ public class Health : MonoBehaviour
         if (col.gameObject.CompareTag("Obstacle") && !isSuper)
         {
             StartCoroutine(MakePlayerSuper());
-            audioSource.Play();
+            Handheld.Vibrate();
             currentHealth--;
             if (currentHealth == 0)
             {

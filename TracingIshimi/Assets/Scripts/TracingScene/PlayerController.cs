@@ -34,9 +34,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip audioBgm;
     // Start is called before the first frame update
     private SpriteRenderer playerSpriteRenderer;
-
+    private Color originalColor;
     void Start()
     {
+
         audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.clip = audioBgm;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         jumpAudio = GetComponent<AudioSource>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = playerSpriteRenderer.color;
     }
 
     // Update is called once per frame
@@ -149,9 +151,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator MakePlayerInvincible()
     {
 
-        // 플레이어를 투명하게 만들기
-        Color originalColor = playerSpriteRenderer.color;
-        playerSpriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.8f);
+
+        playerSpriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
 
         // 일정 시간 기다리기
         yield return new WaitForSeconds(3.0f);
