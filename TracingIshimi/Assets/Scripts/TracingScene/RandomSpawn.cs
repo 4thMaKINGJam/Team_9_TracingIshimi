@@ -14,6 +14,7 @@ public class RandomSpawn : MonoBehaviour
     private GameObject spawnedPrefabs;
     public GameObject Ishimi;
 
+    public GameObject falling;
     public float spentTime = 0f;
     private bool isTimetoRespawn = true;
     private void Update()
@@ -36,10 +37,16 @@ public class RandomSpawn : MonoBehaviour
         {
             isIshimi = true;
             spawnIshimi();
-
+            ActivateFallingComponents();
         }
     }
 
+    void ActivateFallingComponents()
+    {
+        // falling 게임 오브젝트의 SpriteRenderer와 BoxCollider를 활성화
+        falling.GetComponent<SpriteRenderer>().enabled = true;
+        falling.GetComponent<BoxCollider2D>().enabled = true;
+    }
     void spawnIshimi()
     {
         Ishimi.gameObject.SetActive(true);

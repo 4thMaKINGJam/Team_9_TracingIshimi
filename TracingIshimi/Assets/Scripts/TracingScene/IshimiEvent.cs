@@ -4,41 +4,42 @@ using UnityEngine;
 
 public class IshimiEvent : MonoBehaviour
 {
-    public float speed = 1f;
-    public float distance = 0.2f;
-    private Vector3 initialPosition;
-    // Update is called once per frame
+    public float shakeDuration = 2f;
+    public float shakeIntensity = 0.5f;
 
-    void awake()
-    {
-        initialPosition = transform.position;
-    }
-    void Update()
-    {
+    private Vector3 originalPosition;
+    public Camera camera;
 
-        initialPosition = transform.position;
+    void Start()
+    {
+        originalPosition = camera.transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Time.timeScale = 0.5f;
             StartCoroutine(Shake());
         }
     }
 
-    private IEnumerator Shake()
+    IEnumerator Shake()
     {
-        while (true)
+        float elapsedTime = 0f;
+
+        while (elapsedTime < shakeDuration)
         {
-            //만약 좌우로 움직이게 하고 싶으면
-            float newX = initialPosition.x + Mathf.Sin(Time.time * speed) * distance; //: transform.position.x;
-            //만약 상하로 움직이게 하고 싶으면
-            float newY = initialPosition.y + Mathf.Sin(Time.time * speed) * distance;//: transform.position.y;
-            transform.position = new Vector3(newX, newY, transform.position.z);
+            float x = originalPosition.x + Mathf.PerlinNoise(Time.time * 10f, 0f) * shakeIntensity;
+            float y = originalPosition.y + Mathf.PerlinNoise(0f, Time.time * 10f) * shakeIntensity;
+
+            camera.transform.position = new Vector3(x, y, originalPosition.z);
+
+            elapsedTime += Time.deltaTime;
+
             yield return null;
         }
 
+        // Shake이 끝난 후 카메라를 초기 위치로 되돌립니다.
+        camera.transform.position = originalPosition;
     }
 }
