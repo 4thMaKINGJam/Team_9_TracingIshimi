@@ -12,7 +12,7 @@ public class AutoScrollingGround : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (this.GetComponent<SpriteRenderer>() != null)
+        if (this.GetComponent<SpriteRenderer>().enabled)
         {
             length = this.GetComponent<SpriteRenderer>().sprite.bounds.size.x; //백그라운드의 크기
         }

@@ -67,8 +67,5 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
             playerState = PlayerState.Idle;
         }
-
-
-
     }
 }
