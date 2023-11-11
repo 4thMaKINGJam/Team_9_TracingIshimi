@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DestroyObstacle : MonoBehaviour
 {
-    public string platformTag = "Platform"; // 플랫폼 태그를 지정
-
     void Update()
     {
         if (!IsObjectBelow())

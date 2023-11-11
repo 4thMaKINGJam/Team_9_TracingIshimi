@@ -13,6 +13,18 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private AudioSource audioSource;
+    public AudioClip audioHurt;
+    public PlayerController playerController;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.clip = audioHurt;
+        audioSource.loop = false;
+        playerController = GetComponent<PlayerController>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -33,7 +45,12 @@ public class Health : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Obstacle"))
         {
+            audioSource.Play();
             currentHealth--;
+            if (currentHealth == 0)
+            {
+                playerController.SetPlayerStateDie();
+            }
         }
     }
 }
