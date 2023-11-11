@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveVariance : MonoBehaviour
 {
-    public float startEventTime = 94f;
+    public float startEventTime = 103f;
     public float spentTime = 0f;
     public float speed = 0.5f;
     // Start is called before the first frame update

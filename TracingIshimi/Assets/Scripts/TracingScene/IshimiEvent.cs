@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class IshimiEvent : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class IshimiEvent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Shake());
+            Invoke("LoadNextScene", 5f);
         }
     }
 
@@ -41,5 +43,12 @@ public class IshimiEvent : MonoBehaviour
 
         // Shake이 끝난 후 카메라를 초기 위치로 되돌립니다.
         camera.transform.position = originalPosition;
+    }
+
+
+    private void LoadNextScene()
+    {
+        // 다음 씬으로 전환
+        SceneManager.LoadScene("EndingStory");
     }
 }
