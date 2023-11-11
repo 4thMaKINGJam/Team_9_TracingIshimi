@@ -24,7 +24,7 @@ public class RandomObstacle : MonoBehaviour
         {
             RespawnObstacle();
         }
-        if (spawnedPrefab.transform.position.x <= spawnPosition.x - length + 0.2f)
+        if (spawnedPrefab.transform.position.x <= spawnPosition.x - length + 0.3f)
         {
             isRespawnTime = true;
         }

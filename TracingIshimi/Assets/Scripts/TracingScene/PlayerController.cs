@@ -8,9 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public enum PlayerState
     {
-        FirstJump,
-        SecondJump,
-        Damaged,
+        Jump,
         die,
         Idle //Idle = 뛰기
     }
@@ -24,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isJumpBtnDown = false;
 
+    public int playerHealth = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +47,7 @@ public class PlayerController : MonoBehaviour
             jumpCount++;
             playerRigid.velocity = Vector2.zero;
             playerRigid.velocity = new Vector2(0, jumpForce);
-            playerState = (jumpCount == 2) ? PlayerState.SecondJump : PlayerState.FirstJump;
+            playerState = PlayerState.Jump;
         }
     }
 
@@ -59,5 +58,13 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
             playerState = PlayerState.Idle;
         }
+        if (col.gameObject.CompareTag("Obstacle"))
+        {
+            if (--playerHealth == 0)
+            {
+                playerState = PlayerState.die;
+            }
+        }
+
     }
 }
