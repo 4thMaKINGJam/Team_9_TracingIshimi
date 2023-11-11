@@ -23,12 +23,14 @@ public class PlayerController : MonoBehaviour
     public float fallGravityScale = 4f;
 
     public bool isJumpBtnDown = false;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         playerState = PlayerState.Idle;
         playerRigid = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         if (this.jumpCount < 2)
         {
-            jumpCount++;
+            anim.SetInteger("jumpCount", jumpCount++);
             playerRigid.velocity = Vector2.zero;
             playerRigid.velocity = new Vector2(0, jumpForce);
             playerState = PlayerState.Jump;
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.CompareTag("Platform"))
         {
             jumpCount = 0;
+            anim.SetInteger("jumpCount", jumpCount);
             playerState = PlayerState.Idle;
         }
     }
