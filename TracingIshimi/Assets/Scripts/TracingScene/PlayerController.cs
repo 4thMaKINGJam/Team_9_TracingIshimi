@@ -20,9 +20,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerRigid;
     public PlayerState playerState;
 
+    public float fallGravityScale = 4f;
+
     public bool isJumpBtnDown = false;
 
-    public int playerHealth = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
+        }
+        if (playerState == PlayerState.Jump && playerRigid.velocity.y < 0)
+        {
+            playerRigid.gravityScale = fallGravityScale;
+        }
+        else
+        {
+            playerRigid.gravityScale = 2f; // 원래 중력 스케일로 복원
         }
     }
 
@@ -58,13 +67,8 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
             playerState = PlayerState.Idle;
         }
-        if (col.gameObject.CompareTag("Obstacle"))
-        {
-            if (--playerHealth == 0)
-            {
-                playerState = PlayerState.die;
-            }
-        }
+
+
 
     }
 }

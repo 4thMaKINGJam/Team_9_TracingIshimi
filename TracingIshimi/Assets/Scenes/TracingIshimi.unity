@@ -1170,8 +1170,8 @@ MonoBehaviour:
   jumpForce: 10
   jumpCount: 0
   playerState: 0
+  fallGravityScale: 4
   isJumpBtnDown: 0
-  playerHealth: 3
 --- !u!61 &988479353
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1215,8 +1215,9 @@ MonoBehaviour:
   - {fileID: 5079268671229418035, guid: 0a4d025d339407f46a4c78dd12573670, type: 3}
   - {fileID: 1615465023625619883, guid: 2de6e01749752e14d918f55e845a55be, type: 3}
   - {fileID: 4097168636644121473, guid: eac3d935aecf1564da32fa4900f42810, type: 3}
+  - {fileID: 5765739131460458958, guid: 31bfd2f1c0337804b9505d7c4f47c484, type: 3}
   destroyTime: 30
-  length: 8.5
+  length: 9.6
 --- !u!114 &988479355
 MonoBehaviour:
   m_ObjectHideFlags: 0
