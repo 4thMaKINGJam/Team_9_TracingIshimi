@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FindHint.unity
     guid: 72105eeefb72d544198ad2043f847ee2
+  - enabled: 1
+    path: Assets/Scenes/beforeTracing.unity
+    guid: aa48e591d633e3d428f079d4d6942f26
+  - enabled: 1
+    path: Assets/Scenes/TracingIshimi.unity
+    guid: 1f04c2852681a0f4f983833a433ff2dd
   m_configObjects: {}

@@ -8,12 +8,16 @@ public class GameManager : MonoBehaviour
     public GameObject ImageRestart;
     void Start()
     {
-        ImageRestart.SetActive(false);
+        if (ImageRestart != null)
+            ImageRestart.SetActive(false);
     }
     public void onClickRestart()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
+    public void onClickStart()
+    {
+        SceneManager.LoadScene("TracingIshimi");
+    }
 }
