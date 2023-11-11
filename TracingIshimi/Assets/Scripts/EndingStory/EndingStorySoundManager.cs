@@ -7,6 +7,7 @@ public class EndingStorySoundManager : MonoBehaviour
 {
    public AudioSource bgmSource;
     public AudioSource effSource;
+    public AudioSource typingSource;
     public GameObject effSource_obj;
 
     public AudioClip[] sound_eff;
@@ -47,14 +48,15 @@ public class EndingStorySoundManager : MonoBehaviour
     public void playTypingSound(){
         for(int i = 0; i<sound_eff.Length;i++){
             if("text_typing"==sound_eff[i].name){
-                effSource.clip = sound_eff[i];
-                effSource.loop = true;
-                effSource.Play();
+                typingSource.clip = sound_eff[i];
+                typingSource.loop = true;
+                typingSource.Play();
             }
         }
     }
     public void stopTypingSound(){
-        effSource.Stop();
+        effSource.loop = false;
+        typingSource.Stop();
     }
 
     public void playButtonSound(){

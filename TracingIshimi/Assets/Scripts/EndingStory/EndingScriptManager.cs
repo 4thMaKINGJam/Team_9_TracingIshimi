@@ -126,7 +126,8 @@ public class EndingScriptManager : MonoBehaviour
     }
 
     void TextEffectStart(){
-        soundManager.playTypingSound();
+        if(sound_idx[conv_cnt]<=0)
+            soundManager.playTypingSound();
         target_text.text = "";
         effect_cnt=0;
         is_texteff = true;
@@ -204,7 +205,7 @@ public class EndingScriptManager : MonoBehaviour
                 panel_end.GetComponent<Image>().color = new Color(0,0,0, color.a -=0.005f);
             }
          float posY = system_end.GetComponent<RectTransform>().anchoredPosition.y;
-         system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,posY+1f);
+         system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,posY+1.5f);
         }
     }
 }

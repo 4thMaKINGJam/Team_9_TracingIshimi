@@ -45,6 +45,7 @@ public class FindHintSoundManager : MonoBehaviour
         }
     }
     public void stopTypingSound(){
+        effSource.loop = false;
         effSource.Stop();
     }
 

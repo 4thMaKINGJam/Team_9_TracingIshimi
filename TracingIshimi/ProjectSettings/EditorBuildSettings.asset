@@ -8,7 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FindHint.unity
     guid: 72105eeefb72d544198ad2043f847ee2
+  - enabled: 0
+    path: Assets/Scenes/TracingIshimi.unity
+    guid: 1f04c2852681a0f4f983833a433ff2dd
+  - enabled: 1
+    path: Assets/Scenes/EndingStory.unity
+    guid: b61587427ab301f40b00c8c27e7deb77
   m_configObjects: {}
