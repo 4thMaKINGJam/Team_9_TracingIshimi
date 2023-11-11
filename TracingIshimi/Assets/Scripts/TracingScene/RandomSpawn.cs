@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomSpawn : MonoBehaviour
 {
-    public float startEventTime = 100f;
+    public float startEventTime = 94f;
     private bool isIshimi = false;
     public List<GameObject> obstaclePrefabs;
     public float spawnInterval = 1f; //리스폰 되는 간격 = range로 랜덤값 부여할 예정
@@ -12,8 +12,7 @@ public class RandomSpawn : MonoBehaviour
     private float timeSinceLastSpew = 4f;//리스폰 되고 나서 얼마나 흘렀는지
     private Vector3 spawnPostion;
     private GameObject spawnedPrefabs;
-
-    private GameObject Ishimi;
+    public GameObject Ishimi;
 
     public float spentTime = 0f;
     private bool isTimetoRespawn = true;

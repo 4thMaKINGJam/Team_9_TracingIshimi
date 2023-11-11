@@ -23,7 +23,7 @@ public class AutoScrollingGround : MonoBehaviour
     void Update()
     {
         this.transform.Translate(Vector3.left * speed * Time.deltaTime);
-        if (transform.position.x <= -length * 2)
+        if (transform.position.x <= -length * 3)
         {
             Reposition();
         }
