@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EndingButtonManager : MonoBehaviour
 {
+    public EndingStorySoundManager soundManager;
     public GameObject image_story;
     public GameObject conv_system;
     public Sprite sprite_shoot;
@@ -20,6 +21,14 @@ public class EndingButtonManager : MonoBehaviour
     private void Awake(){
         image_story.GetComponent<Image>().sprite = sprite_shoot;
         image_story.GetComponent<Image>().SetNativeSize();
+    }
+    public void ShootButton(){
+        soundManager.pauseBGM();
+        Invoke("Shoot",1f);
+    }
+    public void NotShootButton(){
+        soundManager.stopBGM();
+        Invoke("NotShoot",1f);
     }
 
     public void Shoot(){
@@ -38,10 +47,11 @@ public class EndingButtonManager : MonoBehaviour
         AppendDialog(30,-1,4,"귀한 물건을 파는 고급스러운 상점 안.\n알 수 없는 빛이 맴도는 여의주가 전시되어있다.");
         AppendDialog(30,0,4,"아무도 그 출처를 묻지 않는다...");
         idListToArray();
-        Debug.Log("Shoot");
         conv_system.SetActive(true);
         conv_system.GetComponent<EndingScriptManager>().CallConversation(param_char,param_dialog,param_sprite,param_sound);
     }
+
+    
 
     public void NotShoot(){
         conv_system.GetComponent<EndingScriptManager>().is_shoot = false;
@@ -62,7 +72,6 @@ public class EndingButtonManager : MonoBehaviour
         AppendDialog(30,-1,4,"“여기가 바로 용두암입니다.”");
         AppendDialog(30,-1,4,"“이무기 아시죠? 용이 되지 못한 뱀을 말하는데요,\n이 마을에 대대로 내려오는 전설이 있다고 합니다...”");
         idListToArray();
-        Debug.Log("NotShoot");
         conv_system.SetActive(true);
         conv_system.GetComponent<EndingScriptManager>().CallConversation(param_char,param_dialog,param_sprite,param_sound);
     }
