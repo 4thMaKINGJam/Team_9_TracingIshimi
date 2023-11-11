@@ -16,6 +16,7 @@ public class Health : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip audioHurt;
     public PlayerController playerController;
+    private bool isSuper = false;
 
     void Start()
     {
@@ -43,8 +44,9 @@ public class Health : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Obstacle"))
+        if (col.gameObject.CompareTag("Obstacle") && !isSuper)
         {
+            StartCoroutine(MakePlayerSuper());
             audioSource.Play();
             currentHealth--;
             if (currentHealth == 0)
@@ -52,5 +54,16 @@ public class Health : MonoBehaviour
                 playerController.SetPlayerStateDie();
             }
         }
+    }
+    IEnumerator MakePlayerSuper()
+    {
+
+        isSuper = true;
+        // 일정 시간 기다리기
+        yield return new WaitForSeconds(2.0f);
+
+        isSuper = false;
+
+
     }
 }

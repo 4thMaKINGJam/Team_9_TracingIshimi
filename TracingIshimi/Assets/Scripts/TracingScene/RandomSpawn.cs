@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RandomSpawn : MonoBehaviour
 {
+    private bool isIshimi = false;
     public List<GameObject> obstaclePrefabs;
     public float spawnInterval = 1f; //리스폰 되는 간격 = range로 랜덤값 부여할 예정
     public float spawnDuration = 6f; // 삭제되기까지의 시간
@@ -13,11 +14,12 @@ public class RandomSpawn : MonoBehaviour
 
     public GameObject falling;
 
+    public float spentTime = 0f;
     private bool isTimetoRespawn = true;
     private void Update()
     {
         timeSinceLastSpew += Time.deltaTime;
-
+        spentTime += Time.deltaTime;
         if (isTimetoRespawn)
         {
             isTimetoRespawn = false;
@@ -25,12 +27,22 @@ public class RandomSpawn : MonoBehaviour
             spawnObstacle();
             timeSinceLastSpew = 0f;
         }
-        else if (timeSinceLastSpew >= spawnInterval)
+        else if (timeSinceLastSpew >= spawnInterval && !isIshimi)
         {
             isTimetoRespawn = true;
         }
+
+        if (!isIshimi && spentTime > 100)
+        {
+            isIshimi = true;
+            spawnIshimi();
+        }
     }
 
+    void spawnIshimi()
+    {
+
+    }
 
     void spawnObstacle()
     {

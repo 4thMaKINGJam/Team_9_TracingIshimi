@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     }
     public void onClickRestart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

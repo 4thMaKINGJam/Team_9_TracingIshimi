@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     public int jumpCount = 0; //private로 후에 수정
     Rigidbody2D playerRigid;
-    public PlayerState playerState;
+    public PlayerState playerState = PlayerState.Idle;
 
-    public float fallGravityScale = 4f;
+    public float fallGravityScale = 6f;
 
     public bool isJumpBtnDown = false;
     Animator anim;
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Time.timeScale = targetTimeScale; // 정확하게 0으로 맞추기 위해 마지막에 설정
-
+        yield return null;
     }
 
 
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (col.gameObject.CompareTag("Border"))
         {
-            playerState = PlayerState.Die;
+            //playerState = PlayerState.Die;
 
             SetPlayerStateDie();
         }
