@@ -11,13 +11,17 @@ public class ConvManager : MonoBehaviour
     public GameObject window_NPCname;
     public GameObject portrait_NPC;
     public GameObject image_obj;
+    public GameObject system_nextStage;
     public Sprite[] sprites_obj;
     public TMP_Text conv_text;
     public TMP_Text npc_text;
+    public TMP_Text center_text;
+    public TMP_Text target_text;
     private int conv_cnt =0;
     private int progress_cnt = 0;
     private int effect_cnt;
     private bool is_texteff;
+    private bool is_next = false;
     private int[] conv_character;
     private string[] conv_dialog;
 
@@ -36,10 +40,13 @@ public class ConvManager : MonoBehaviour
         image_obj.GetComponent<Image>().sprite = sprites_obj[sprite_idx];
         image_obj.GetComponent<Image>().SetNativeSize();
         SetConvText();
-        
     }
 
     void SetConvText(){
+        target_text = conv_text;
+        if(is_next){
+            target_text = center_text;
+        }
         if(conv_cnt==conv_character.Length){
             gameObject.SetActive(false);
             conv_cnt = 0;
@@ -58,30 +65,40 @@ public class ConvManager : MonoBehaviour
     }
 
     void TextEffectStart(){
-        conv_text.text = "";
+        target_text.text = "";
         effect_cnt=0;
         is_texteff = true;
         Invoke("TextEffecting",1/CharPerSec);
     }
     void TextEffecting(){
-        if(conv_text.text==conv_dialog[conv_cnt]){
+        if(target_text.text==conv_dialog[conv_cnt]){
             TextEffectEnd();
             return;
         }
-        conv_text.text += conv_dialog[conv_cnt][effect_cnt];
+        target_text.text += conv_dialog[conv_cnt][effect_cnt];
         effect_cnt++;
         Invoke("TextEffecting",1/CharPerSec);
     }
     void TextEffectEnd(){
         is_texteff = false;
-        conv_text.text = conv_dialog[conv_cnt];
-        if(progress_cnt==obj_arrlen && conv_cnt == conv_dialog.Length-1){
+        target_text.text = conv_dialog[conv_cnt];
+        if(!is_next && progress_cnt==obj_arrlen && conv_cnt == conv_dialog.Length-1){
             Invoke("toNextStage",2);
         }
     }
 
     void toNextStage(){
         Debug.Log("Stage SUCCESS : To Next Stage");
+        gameObject.SetActive(true);
+        system_nextStage.SetActive(true);
+        is_next = true;
+        int[] tmp_character = {10,10};
+        this.conv_character = tmp_character;
+        string[] next_dialog = {"이시미의 비늘이 떨어진 방향의 길로 발걸음을 옮긴다.","아니나 다를까, 바닥에는 거대한 뱀이 지나간 듯한 흔적이 이어진다."};
+        this.conv_dialog = next_dialog;
+        Debug.Log(conv_cnt);
+        SetConvText();
+        
     }
     void Update(){
         if(Input.GetMouseButtonDown(0)){
