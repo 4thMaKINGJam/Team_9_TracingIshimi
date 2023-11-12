@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class josunTextOut : MonoBehaviour
 {
-    public GameObject talk_panel;
-    public float time;
     public Text text;
+    public float time;
     int num;
 
     // Update is called once per frame
@@ -17,7 +16,7 @@ public class josunTextOut : MonoBehaviour
         time += Time.deltaTime;
         num = (int)time;
 
-        if (num == 5) {
+        if (num == 8) {
             text.text = "";
         }
     }

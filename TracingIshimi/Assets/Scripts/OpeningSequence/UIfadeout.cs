@@ -30,7 +30,7 @@ public class UIfadeout : MonoBehaviour{
         Color color = image.color;                            //color 에 판넬 이미지 참조
 
         for (int i = 100; i >= 0; i--) {                         //for문 100번 반복 0보다 작을 때 까지
-            color.a -= Time.deltaTime * 0.004f;               //이미지 알파 값을 타임 델타 값 * 0.01
+            color.a -= Time.deltaTime * 0.002f;               //이미지 알파 값을 타임 델타 값 * 0.01
             image.color = color;                                //판넬 이미지 컬러에 바뀐 알파값 참조
 
             if (image.color.a <= 0) {                        //만약 판넬 이미지 알파 값이 0보다 작으면

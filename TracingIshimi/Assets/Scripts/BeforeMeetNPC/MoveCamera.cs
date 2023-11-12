@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveCamera : MonoBehaviour
 {
     [SerializeField] Transform player;
+    [SerializeField] MovePlayer playerscript;
     [SerializeField] float smoothing = 0.2f;
     [SerializeField] Vector2 minCameraBoundary;
     [SerializeField] Vector2 maxCameraBoundary;
@@ -12,6 +13,9 @@ public class MoveCamera : MonoBehaviour
     int num;
     public float time;
 
+    void awake(){
+        MovePlayer playerscript = GetComponent<MovePlayer>();
+    }
     private void FixedUpdate(){
         time += Time.deltaTime;
         num = (int)time;
@@ -33,12 +37,14 @@ public class MoveCamera : MonoBehaviour
         }
 
         if (num >= 16) {
+            playerscript.anim.SetBool("isWalk", true);
             moveSpeed = 3f;
             transform.position += Vector3.right * moveSpeed *Time.deltaTime;
         }
 
         if (num >= 19) {
             moveSpeed = 0;
+            transform.position += Vector3.right * moveSpeed *Time.deltaTime;
         }
 
 
