@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ConvManager : MonoBehaviour
 {
@@ -45,6 +46,9 @@ public class ConvManager : MonoBehaviour
             target_text = center_text;
         }
         if(conv_cnt==conv_character.Length){
+            if(is_next){
+                SceneManager.LoadScene("beforeTracing");
+            }
             gameObject.SetActive(false);
             conv_cnt = 0;
             return;
@@ -92,9 +96,9 @@ public class ConvManager : MonoBehaviour
         system_nextStage.SetActive(true);
         is_next = true;
         int[] tmp_character = {10,10};
-        this.conv_character = tmp_character;
+        conv_character = tmp_character;
         string[] next_dialog = {"이시미의 비늘이 떨어진 방향의 길로 발걸음을 옮긴다.","아니나 다를까, 바닥에는 거대한 뱀이 지나간 듯한 흔적이 이어진다."};
-        this.conv_dialog = next_dialog;
+        conv_dialog = next_dialog;
         Debug.Log(conv_cnt);
         SetConvText();
         
