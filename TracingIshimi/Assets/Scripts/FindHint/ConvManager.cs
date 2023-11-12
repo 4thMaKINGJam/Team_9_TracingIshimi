@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ConvManager : MonoBehaviour
 {
+    public FindHintSoundManager soundManager;
     //10번은 플레이어, 20번은 산받이
     public int obj_arrlen;
     public GameObject window_NPCname;
@@ -27,10 +28,6 @@ public class ConvManager : MonoBehaviour
 
     [SerializeField]
     float CharPerSec;
-
-    void Awake(){
-        //sprites_obj = new Sprite[obj_arrlen];
-    }
 
     public void CallConversation(int[] conv_character, string[] conv_dialog, int sprite_idx){
         gameObject.SetActive(true);
@@ -65,6 +62,7 @@ public class ConvManager : MonoBehaviour
     }
 
     void TextEffectStart(){
+        soundManager.playTypingSound();
         target_text.text = "";
         effect_cnt=0;
         is_texteff = true;
@@ -80,15 +78,16 @@ public class ConvManager : MonoBehaviour
         Invoke("TextEffecting",1/CharPerSec);
     }
     void TextEffectEnd(){
+        soundManager.stopTypingSound();
         is_texteff = false;
         target_text.text = conv_dialog[conv_cnt];
-        if(!is_next && progress_cnt==obj_arrlen && conv_cnt == conv_dialog.Length-1){
+        if(!is_next && progress_cnt-1==obj_arrlen && conv_cnt == conv_dialog.Length-1){
             Invoke("toNextStage",2);
         }
     }
 
     void toNextStage(){
-        Debug.Log("Stage SUCCESS : To Next Stage");
+        soundManager.playBGM("ForestBGM");
         gameObject.SetActive(true);
         system_nextStage.SetActive(true);
         is_next = true;

@@ -9,7 +9,6 @@ public class ObjectManager : MonoBehaviour
     public GameObject[] obj_original;
     public GameObject[] obj_shadow;
     public Sprite[] obj_sprites;
-
     int[] conv_character;
     string[] conv_dialog;
     int idx;

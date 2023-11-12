@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class EndingScriptManager : MonoBehaviour
 {
+    public EndingStorySoundManager soundManager;
     //10번은 플레이어, 20번은 산받이, 30번은 윗나레이션 40번은 아랫나레이션 50번 사운드
     public GameObject system_NPCconv;
     public GameObject system_Button;
@@ -29,6 +30,7 @@ public class EndingScriptManager : MonoBehaviour
     private bool is_texteff;
     private bool is_ending = false;
     private bool is_credit = false;
+    private bool bgm_paused = false;
     private int[] conv_character;
     private string[] conv_dialog;
     private int[] sprite_idx;
@@ -36,6 +38,8 @@ public class EndingScriptManager : MonoBehaviour
 
     [SerializeField]
     float CharPerSec;
+    [SerializeField]
+    string[] sound_eff;
 
     public void CallConversation(int[] conv_character, string[] conv_dialog, int[] sprite_idx, int[] sound_idx){
         system_Button.SetActive(false);
@@ -51,7 +55,6 @@ public class EndingScriptManager : MonoBehaviour
     void SetConvText(){
         END_text.text = "";
         if(conv_cnt>=conv_character.Length){
-            Debug.Log(conv_cnt+"/"+conv_character.Length);
             if(!is_ending){
                 CallEnding();
             }
@@ -70,13 +73,25 @@ public class EndingScriptManager : MonoBehaviour
         }
 
         // 사운드이펙트
-        if(sound_idx[conv_cnt]!=-1){
-            Debug.Log("SE: "+sound_idx[conv_cnt]);
+        if(sound_idx[conv_cnt]==0){
+            if(bgm_paused){
+                bgm_paused = false;
+                soundManager.resumeBGM();
+            }
+            else if(is_shoot){
+                soundManager.playBGM("hunt_or_not");
+            }
+            else{
+                soundManager.playBGM("not_shoot_bgm");
+            }
         }
         else if(sound_idx[conv_cnt]==-2){
-            Debug.Log("Main BGM Stop");
+            bgm_paused = true;
+            soundManager.pauseBGM();
         }
-        Debug.Log("Sound Done");
+        else if(sound_idx[conv_cnt]!=-1){
+            soundManager.playSoundEffect(sound_eff[sound_idx[conv_cnt]]);
+        }
 
         
         // 대화
@@ -111,6 +126,8 @@ public class EndingScriptManager : MonoBehaviour
     }
 
     void TextEffectStart(){
+        if(sound_idx[conv_cnt]<=0)
+            soundManager.playTypingSound();
         target_text.text = "";
         effect_cnt=0;
         is_texteff = true;
@@ -131,7 +148,7 @@ public class EndingScriptManager : MonoBehaviour
         Invoke("TextEffecting",1/CharPerSec);
     }
     void TextEffectEnd(){
-        Debug.Log("TextEffect End");
+        soundManager.stopTypingSound();
         is_texteff = false;
         if(sprite_idx[conv_cnt]==4){
             target_text.text ="<color=\"black\">"+conv_dialog[conv_cnt]+"</color>";
@@ -144,14 +161,16 @@ public class EndingScriptManager : MonoBehaviour
 
     void CallEnding(){
         is_ending = true;
+        soundManager.fadeoutEffect();
         image_obj.SetActive(false);
         target_text = END_text;
         narrCenter_text.text = "";
         conv_dialog[--conv_cnt] = "「이시미잡이」";
         sprite_idx[conv_cnt] = -1;
+        soundManager.playBGM("credit_bgm");
         TextEffectStart();
         Invoke("showCHchar",1.3f);
-        Invoke("showCredit",2);
+        Invoke("showCredit",3);
     }
 
     void showCHchar(){
@@ -162,7 +181,7 @@ public class EndingScriptManager : MonoBehaviour
         is_credit = true;
         image_end.SetActive(false);
         panel_end.SetActive(true);
-        END_text.text = "제 4회 메이킹잼\n프로젝트 - 이시미잡이\n\n- 기획 -\n<color=\"grey\">한국음악과</color>\n한이새꽃\n\n- 그래픽 -\n<color=\"grey\">섬유예술과</color>\n이주원\n\n- 코더 -\n<color=\"grey\">컴퓨터공학전공</color>\n김정민\n\n김현민\n\n이소민";
+        END_text.text = "제 4회 메이킹잼\n프로젝트 - 이시미잡이\n\n- 기획 및 사운드 -\n<color=\"grey\">한국음악과</color>\n한이새꽃\n\n- 그래픽 -\n<color=\"grey\">섬유예술과</color>\n이주원\n\n- 코더 -\n<color=\"grey\">컴퓨터공학전공</color>\n김정민\n\n김현민\n\n이소민";
         system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,-1400f);
         panel_end.GetComponent<Image>().color = new Color(0,0,0,1);
     }
@@ -186,7 +205,7 @@ public class EndingScriptManager : MonoBehaviour
                 panel_end.GetComponent<Image>().color = new Color(0,0,0, color.a -=0.005f);
             }
          float posY = system_end.GetComponent<RectTransform>().anchoredPosition.y;
-         system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,posY+1f);
+         system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,posY+1.5f);
         }
     }
 }
