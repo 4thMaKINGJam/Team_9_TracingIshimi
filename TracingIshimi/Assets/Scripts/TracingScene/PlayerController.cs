@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerRigid;
     public PlayerState playerState = PlayerState.Idle;
 
-    public float fallGravityScale = 6f;
+    public float fallGravityScale = 25f;
 
     public bool isJumpBtnDown = false;
     Animator anim;

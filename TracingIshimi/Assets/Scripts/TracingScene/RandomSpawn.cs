@@ -47,7 +47,7 @@ public class RandomSpawn : MonoBehaviour
 
     void spawnObstacle()
     {
-        spawnInterval = Random.Range(0.9f, 2f);
+        spawnInterval = Random.Range(1f, 2.1f);
         int randomIndex = Random.Range(0, obstaclePrefabs.Count);
         spawnPostion = (randomIndex == 1) ? new Vector3(12, -3, 0) : new Vector3(12, -2, 0);
         spawnedPrefabs = Instantiate(obstaclePrefabs[randomIndex], spawnPostion, Quaternion.identity);

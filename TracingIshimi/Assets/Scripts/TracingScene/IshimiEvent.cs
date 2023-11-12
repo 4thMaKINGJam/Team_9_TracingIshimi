@@ -11,16 +11,24 @@ public class IshimiEvent : MonoBehaviour
     private Vector3 originalPosition;
     public Camera camera;
 
+    public float speed = 1.5f;
+
     void Start()
     {
         originalPosition = camera.transform.position;
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        this.transform.Translate(Vector3.left * speed * Time.deltaTime);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Shake());
+            speed = 0.2f;
             Invoke("LoadNextScene", 5f);
         }
     }
