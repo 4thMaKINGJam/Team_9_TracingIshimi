@@ -7,7 +7,6 @@ public class RandomSpawn : MonoBehaviour
     public float startEventTime = 103f;
     public float startCloudTime = 60f;
     private bool isIshimi = false;
-    private bool isCloud = false;
     public List<GameObject> obstaclePrefabs;
     public GameObject cloudPrefabs;
     public float spawnInterval = 1f; //리스폰 되는 간격 = range로 랜덤값 부여할 예정
@@ -48,18 +47,20 @@ public class RandomSpawn : MonoBehaviour
     }
     void spawnCloud()
     {
-        spawnInterval = Random.Range(1.2f, 2.3f);
-        int randomIndex = Random.Range(0, 2);
+        spawnInterval = 1.6f;
+        int randomIndex = Random.Range(0, 5);
         switch (randomIndex)
         {
             case 0:
-                spawnPostion = new Vector3(10, 4, 0);
+                spawnPostion = new Vector3(10, 2f, 0);
                 break;
             case 1:
-                spawnPostion = new Vector3(10, 1, 0);
-                break;
             case 2:
-                spawnPostion = new Vector3(10, -2, 0);
+                spawnPostion = new Vector3(10, -0.5f, 0);
+                break;
+            case 3:
+            case 4:
+                spawnPostion = new Vector3(10, -2f, 0);
                 break;
         }
         spawnedPrefabs = Instantiate(cloudPrefabs, spawnPostion, Quaternion.identity);

@@ -5,22 +5,30 @@ using UnityEngine.EventSystems;
 
 public class ButtonController : MonoBehaviour
 {
-    GameObject Player; //플레이어 오브젝트
-    PlayerController playerController;
-    // Start is called before the first frame update
+    private SpriteRenderer btnSpriteRenderer;
+    private Color originalColor;
+    public GameObject jumpBtn; //플레이어 오브젝트
+
     void Start()
     {
-        Player = GameObject.Find("Player");
-        playerController = Player.GetComponent<PlayerController>();
+        btnSpriteRenderer = jumpBtn.GetComponent<SpriteRenderer>();
+        originalColor = btnSpriteRenderer.color;
+    }
+    public void onClickDownJump()
+    {
+        StartCoroutine(MakeBtnVincible());
     }
 
-    public void jump_btnDown()
-    {
-        playerController.isJumpBtnDown = true;
-    }
 
-    public void jump_btnUp()
+    IEnumerator MakeBtnVincible()
     {
-        playerController.isJumpBtnDown = false;
+        btnSpriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+
+        // 일정 시간 기다리기
+        yield return new WaitForSeconds(1f);
+
+        // 플레이어를 다시 불투명하게 만들기
+        btnSpriteRenderer.color = originalColor;
+
     }
 }
