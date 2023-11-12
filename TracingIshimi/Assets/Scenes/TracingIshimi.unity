@@ -1147,9 +1147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startEventTime: 100
+  startCloudTime: 50
   obstaclePrefabs:
   - {fileID: 928924466639316376, guid: be3def15669919447b9cb1d75d8e7673, type: 3}
   - {fileID: 2373368329178876766, guid: 2ef574f6abbc06f408b1d55ccb271ee3, type: 3}
+  cloudPrefabs: {fileID: 4030340729135103250, guid: 619c675bc5d6be24c9b98959e95cd851, type: 3}
   spawnInterval: 1
   spawnDuration: 6
   Ishimi: {fileID: 2014176892}

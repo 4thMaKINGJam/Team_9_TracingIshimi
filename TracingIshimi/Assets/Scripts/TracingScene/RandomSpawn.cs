@@ -5,8 +5,11 @@ using UnityEngine;
 public class RandomSpawn : MonoBehaviour
 {
     public float startEventTime = 103f;
+    public float startCloudTime = 60f;
     private bool isIshimi = false;
+    private bool isCloud = false;
     public List<GameObject> obstaclePrefabs;
+    public GameObject cloudPrefabs;
     public float spawnInterval = 1f; //리스폰 되는 간격 = range로 랜덤값 부여할 예정
     public float spawnDuration = 6f; // 삭제되기까지의 시간
     private float timeSinceLastSpew = 4f;//리스폰 되고 나서 얼마나 흘렀는지
@@ -24,7 +27,12 @@ public class RandomSpawn : MonoBehaviour
         {
             isTimetoRespawn = false;
             //obstacle initiaite하는 함수 
-            spawnObstacle();
+            if (spentTime > startCloudTime && spentTime < startEventTime)
+            {
+                spawnCloud();
+            }
+            else
+                spawnObstacle();
             timeSinceLastSpew = 0f;
         }
         else if (timeSinceLastSpew >= spawnInterval && !isIshimi)
@@ -38,8 +46,24 @@ public class RandomSpawn : MonoBehaviour
             spawnIshimi();
         }
     }
-
-
+    void spawnCloud()
+    {
+        spawnInterval = Random.Range(1.2f, 2.3f);
+        int randomIndex = Random.Range(0, 2);
+        switch (randomIndex)
+        {
+            case 0:
+                spawnPostion = new Vector3(10, 4, 0);
+                break;
+            case 1:
+                spawnPostion = new Vector3(10, 1, 0);
+                break;
+            case 2:
+                spawnPostion = new Vector3(10, -2, 0);
+                break;
+        }
+        spawnedPrefabs = Instantiate(cloudPrefabs, spawnPostion, Quaternion.identity);
+    }
     void spawnIshimi()
     {
         Ishimi.gameObject.SetActive(true);
