@@ -33,7 +33,6 @@ public class EndingIntro : MonoBehaviour
         TextEffectStart();
     }
     void TextEffectStart(){
-        Debug.Log("effect start");
         soundManager.playTypingSound();
         target_text.text = "";
         effect_cnt=0;
@@ -41,7 +40,6 @@ public class EndingIntro : MonoBehaviour
         Invoke("TextEffecting",1/CharPerSec);
     }
     void TextEffecting(){
-        Debug.Log("TextEffecting");
         if(effect_cnt==conv_dialog[conv_cnt].Length){
             TextEffectEnd();
             return;
