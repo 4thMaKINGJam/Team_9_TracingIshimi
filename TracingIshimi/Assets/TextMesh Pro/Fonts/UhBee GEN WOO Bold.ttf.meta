@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0811f0ef660b68044b0cae5c07a74fda
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - UhBee GEN WOO
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d4d64af4c2b7e14438b3ae0a60f50b63, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
