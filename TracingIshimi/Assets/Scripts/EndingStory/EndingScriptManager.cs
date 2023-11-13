@@ -17,6 +17,7 @@ public class EndingScriptManager : MonoBehaviour
     public GameObject image_obj;
     public GameObject image_end;
     public GameObject panel_end;
+    public GameObject system_credit;
     public Sprite[] sprites_obj;
     public TMP_Text conv_text;
     public TMP_Text npc_text;
@@ -29,7 +30,6 @@ public class EndingScriptManager : MonoBehaviour
     private int effect_cnt;
     private bool is_texteff;
     private bool is_ending = false;
-    private bool is_credit = false;
     private bool bgm_paused = false;
     private int[] conv_character;
     private string[] conv_dialog;
@@ -161,6 +161,7 @@ public class EndingScriptManager : MonoBehaviour
 
     void CallEnding(){
         is_ending = true;
+        system_end.SetActive(true);
         soundManager.fadeoutEffect();
         image_obj.SetActive(false);
         target_text = END_text;
@@ -178,12 +179,8 @@ public class EndingScriptManager : MonoBehaviour
     }
 
     void showCredit(){
-        is_credit = true;
-        image_end.SetActive(false);
-        panel_end.SetActive(true);
-        END_text.text = "제 4회 메이킹잼\n프로젝트 - 이시미잡이\n\n- 기획 및 사운드 -\n<color=\"grey\">한국음악과</color>\n한이새꽃\n\n- 그래픽 -\n<color=\"grey\">섬유예술과</color>\n이주원\n\n- 코더 -\n<color=\"grey\">컴퓨터공학전공</color>\n김정민\n\n김현민\n\n이소민";
-        system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,-1400f);
-        panel_end.GetComponent<Image>().color = new Color(0,0,0,1);
+        system_credit.SetActive(true);
+        system_credit.GetComponent<Credit>().showCredit();
     }
 
     void Update(){
@@ -199,13 +196,6 @@ public class EndingScriptManager : MonoBehaviour
                 }   
             }
         }
-        if(is_credit&&system_end.GetComponent<RectTransform>().anchoredPosition.y<=1200){
-            if(panel_end.GetComponent<Image>().color.a>0){
-                Color color = panel_end.GetComponent<Image>().color;
-                panel_end.GetComponent<Image>().color = new Color(0,0,0, color.a -=0.005f);
-            }
-         float posY = system_end.GetComponent<RectTransform>().anchoredPosition.y;
-         system_end.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,posY+1.5f);
-        }
+        
     }
 }
